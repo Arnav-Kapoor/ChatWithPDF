@@ -13,3 +13,5 @@ timm
 langchain-weaviate
 langchain-community
 langchain-core
+langchain-huggingface
+langchain-ollama
