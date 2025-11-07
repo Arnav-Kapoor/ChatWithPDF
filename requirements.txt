@@ -4,6 +4,8 @@ matplotlib
 langchain
 huggingface
 pdfplumber
+camelot-py[cv]
+tabula-py
 tensorflow
 torch
 torchvision
