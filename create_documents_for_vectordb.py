@@ -1,8 +1,9 @@
 from langchain_community.document_loaders import PDFPlumberLoader
+from collections import defaultdict
 
 from langchain_classic.schema import Document
 
-def create_docs(final_tables,extracted_text):
+def create_docs(final_tables,extracted_texts):
     documents=[]
     for page_num,text in extracted_texts.items():
         documents.append(Document(metadata={'page':page_num},page_content=text))
