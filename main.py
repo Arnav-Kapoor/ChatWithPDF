@@ -10,40 +10,52 @@ from get_context import get_context
 from all_prompts import create_chat_prompt,create_summarizer_prompt
 import pdfplumber
 
-model,image_processor=table_transformer()
-embeddings=set_embeddings()
 
-pdf_path="nestle_report.pdf"
-pdf=pdfplumber(pdf_path)
-chat_history=[]
+def main():
+    model,image_processor=table_transformer()
+    embeddings=set_embeddings()
 
-pdfplumber_tables, camelot_tables, tabula_tables, extracted_texts=read_tables_text(model,image_processor,pdf)
+    pdf_path="nestle_report.pdf"
+    pdf=pdfplumber.open(pdf_path)
+    chat_history=[]
 
-final_tables=preprocessing(pdfplumber_tables,camelot_tables,tabula_tables)
+    pdfplumber_tables, camelot_tables, tabula_tables, extracted_texts=read_tables_text(pdf_path,model,image_processor,pdf)
+    print("tables fetched")
 
-clean_documents=create_docs(final_tables,extracted_texts)
+    final_tables=preprocessing(pdfplumber_tables,camelot_tables,tabula_tables)
 
-client=set_connection()
+    clean_documents=create_docs(final_tables,extracted_texts)
+    print("documents ready")
 
-db=vectors_in_db(client,embeddings,clean_documents)
-vector_created=True
+    client=set_connection()
 
-llm=set_llm()
+    db=vectors_in_db(client,embeddings,clean_documents)
+    print("db is set")
 
-query="What is the document about"
-context,tables=get_context(db,llm,query)
+    vector_created=True
 
-prompt=create_chat_prompt()
-prompt=prompt.format(context=context,tables_text=tables,query=query,chat_history=chat_history)
+    llm=set_llm()
 
-response=invoke_llm(llm,prompt)
+    query="What is the document about"
+    context,tables=get_context(db,llm,query)
 
-summary_prompt=create_summarizer_prompt()
-summary_prompt=summary_prompt.format(query=query,response=response)
+    prompt=create_chat_prompt()
+    prompt=prompt.format(context=context,tables_text=tables,query=query,chat_history=chat_history)
 
-summary=invoke_llm(llm,summary_prompt)
+    response=invoke_llm(llm,prompt)
+    print(response)
 
-chat_history.append(summary)
+    summary_prompt=create_summarizer_prompt()
+    summary_prompt=summary_prompt.format(query=query,response=response)
+
+    summary=invoke_llm(llm,summary_prompt)
+    print(summary)
+
+    chat_history.append(summary)
+
+
+if __name__=="__main__":
+    main()
 
 
 

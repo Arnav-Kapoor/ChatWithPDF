@@ -24,7 +24,7 @@ def find_tables(model,image_processor,page_img):
 
 
 
-def read_tables_text(model,image_processor,pdf,adjustment_factor=5):
+def read_tables_text(pdf_path,model,image_processor,pdf,adjustment_factor=5):
     pdfplumber_tables=defaultdict(list)
     camelot_tables=defaultdict(list)
     tabula_tables=defaultdict(list)
