@@ -11,11 +11,11 @@ from all_prompts import create_chat_prompt,create_summarizer_prompt
 import pdfplumber
 
 
-def main():
+def main(pdf_path,query):
     model,image_processor=table_transformer()
     embeddings=set_embeddings()
 
-    pdf_path="nestle_report.pdf"
+    # pdf_path="nestle_report.pdf"
     pdf=pdfplumber.open(pdf_path)
     chat_history=[]
 
@@ -36,7 +36,7 @@ def main():
 
     llm=set_llm()
 
-    query="What is the document about"
+    # query="What is the document about"
     context,tables=get_context(db,llm,query)
 
     prompt=create_chat_prompt()
@@ -53,9 +53,11 @@ def main():
 
     chat_history.append(summary)
 
+    return response
 
 if __name__=="__main__":
-    main()
+    # main()
+    pass
 
 
 
