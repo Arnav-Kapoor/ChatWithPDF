@@ -93,7 +93,7 @@ def read_tables_text(pdf_path,model,image_processor,pdf,adjustment_factor=5):
                 pdf_path,
                 pages=page_number,
                 area=[max(0,y0-adjustment_factor),max(0,x0-adjustment_factor),min(page_height,y1+adjustment_factor),min(page_width,x1+adjustment_factor)],       #coordinates in points
-                encoding="cp1252",
+                # encoding="cp1252",
                 stream=True
             )
             tabula_tables[page_number].extend(tabula_table)
