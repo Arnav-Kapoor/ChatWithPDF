@@ -1,5 +1,6 @@
 import streamlit as st
 from main import main
+import os
 
 st.title("📄 Document question answering")
 
@@ -20,7 +21,8 @@ question = st.text_area(
 if uploaded_file and question:
 
         # Process the uploaded file and question.
-        save_path=f"data/{uploaded_file.name}"
+        os.makedirs("data",exist_ok=True)
+        save_path=f"data/{uploaded_file.name}.pdf"
         with open(save_path,"wb") as file:
                 file.write(uploaded_file.read())
 
