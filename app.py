@@ -23,7 +23,7 @@ if uploaded_file and question:
         # Process the uploaded file and question.
         os.makedirs("data",exist_ok=True)
         save_path=f"data/{uploaded_file.name}.pdf"
-        with open(save_path,"wb") as file:
+        with open(save_path,"wb",encoding="cp1252") as file:
                 file.write(uploaded_file.read())
 
         response=main(save_path,question)
