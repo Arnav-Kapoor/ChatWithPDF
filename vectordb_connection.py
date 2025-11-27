@@ -7,12 +7,12 @@ from langchain_weaviate import WeaviateVectorStore
 
 def set_connection():
     client = weaviate.WeaviateClient(connection_params=ConnectionParams.from_params(
-        http_host="localhost",
-        http_port="8080",
-        http_secure=False,
-        grpc_host="localhost",
-        grpc_port="50051",
-        grpc_secure=False,
+        http_host="amazing-stays-extras-intake.trycloudflare.com",
+        # http_port="8080",
+        http_secure=True,
+        grpc_host="amazing-stays-extras-intake.trycloudflare.com",
+        # grpc_port="50051",
+        grpc_secure=True,
     ))
 
     client.connect()
